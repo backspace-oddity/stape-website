@@ -32,7 +32,7 @@ export default function Hero() {
               />
             ))}
           </div>
-          <span className="text-sm text-foreground-muted">Trusted by 10,000+ teams</span>
+          <span className="text-sm text-foreground-muted">Trusted by 100+ teams getting their time back</span>
         </motion.div>
 
         {/* Main headline */}
@@ -42,8 +42,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          Pay your global team.{' '}
-          Skip the work that shouldn&apos;t exist.
+          You didn&apos;t start your company to do a payroll. We are here to make it obsolete
         </motion.h1>
 
         {/* Subhead */}
@@ -53,7 +52,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Stop being an unlicensed accountant. Pay your global team in one click. Automatic compliance, currency conversion, and tax handling in 190+ countries.
+          Stape is an AI-powered platform for global payroll: compliance, fixed FX rates, tax handling in 240+ countries — we&apos;ve got you covered.
         </motion.p>
 
         {/* CTA row: email input + button */}

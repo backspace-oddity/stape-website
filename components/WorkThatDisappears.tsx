@@ -29,7 +29,7 @@ export default function WorkThatDisappears() {
           className="mb-16 text-center"
         >
           <h2 className="text-[32px] md:text-[40px] font-display font-extrabold text-white leading-[1.1] tracking-[-0.02em]">
-            What Actually Happens
+            Two options to direct your energy
           </h2>
         </motion.div>
 
@@ -60,11 +60,21 @@ export default function WorkThatDisappears() {
             className="bg-accent/10 rounded-2xl p-8 md:p-10 border border-accent/20 flex flex-col justify-between"
           >
             <div>
-              <h3 className="text-lg font-display font-bold text-white mb-8">What You Do With Stape</h3>
-              <p className="text-4xl md:text-5xl font-display font-extrabold text-white leading-tight">
-                Click<br />
-                &ldquo;Pay Everyone&rdquo;
-              </p>
+              <h3 className="text-lg font-display font-bold text-white mb-6">What You Do With Stape</h3>
+              <ul className="space-y-4">
+                {[
+                  'Meeting new clients',
+                  'Investing in your team development',
+                  'Launching new features',
+                  'Outpacing competitors',
+                  'Getting your weekends back',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/90 text-sm leading-relaxed">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/50 mt-2 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="mt-12 pt-6 border-t border-white/10">

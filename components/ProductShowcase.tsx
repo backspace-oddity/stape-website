@@ -18,6 +18,9 @@ export default function ProductShowcase() {
           transition={{ duration: 0.8 }}
           className="bg-background-secondary rounded-2xl overflow-hidden p-6 md:p-10"
         >
+          <h2 className="text-[28px] md:text-[36px] font-display font-extrabold text-primary text-center mb-8 tracking-[-0.02em] leading-[1.1]">
+            Experience how contractors get paid, but you didn&apos;t do anything
+          </h2>
           <div className="relative w-full rounded-xl overflow-hidden shadow-lg">
             <Image
               src="/Images/SCR-20260209-bjhb.png"

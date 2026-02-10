@@ -30,60 +30,68 @@ export default function PricingComparison() {
           <div className="bg-white rounded-2xl p-8 border border-border">
             <h3 className="text-lg font-display font-bold text-primary mb-6">Your Current System</h3>
             <ul className="space-y-4 text-sm text-foreground-secondary">
-              <li className="flex items-start gap-2">
-                <span className="text-foreground-muted">•</span>
-                <span>Your time: <span className="text-primary font-medium">___</span> hours/month × your hourly rate = €<span className="text-primary font-medium">___</span></span>
+              <li className="flex items-center justify-between">
+                <span>Your time (hours × hourly rate)</span>
+                <span className="text-primary font-medium">$___</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-foreground-muted">•</span>
-                <span>Failed transactions: <span className="text-primary font-medium">___</span> per month × time to reconcile = €<span className="text-primary font-medium">___</span></span>
+              <li className="flex items-center justify-between">
+                <span>Wire transfer fees (per transfer)</span>
+                <span className="text-primary font-medium">$___</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-foreground-muted">•</span>
-                <span>Accountant briefings: <span className="text-primary font-medium">___</span> hours/month × rate = €<span className="text-primary font-medium">___</span></span>
+              <li className="flex items-center justify-between">
+                <span>FX spread (hidden costs)</span>
+                <span className="text-primary font-medium">$___</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-foreground-muted">•</span>
-                <span>Compliance risk: <span className="italic">Priceless (but real)</span></span>
+              <li className="flex items-center justify-between">
+                <span>Failed payment recovery</span>
+                <span className="text-primary font-medium">$___</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span>Compliance consultant (annual)</span>
+                <span className="text-primary font-medium">$___</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <span>Stress, weekends, sanity</span>
+                <span className="italic text-foreground-muted">Priceless</span>
               </li>
             </ul>
             <div className="mt-6 pt-6 border-t border-border">
-              <p className="text-sm text-primary">
-                <span className="font-semibold">Total:</span> €<span className="text-primary font-medium">___</span>/month + your sanity
+              <p className="text-sm text-foreground-muted italic">
+                Add it up. We&apos;ll wait.
               </p>
             </div>
           </div>
 
           {/* Stape */}
-          <div className="bg-primary rounded-2xl p-8 text-primary-foreground">
-            <h3 className="text-lg font-display font-bold mb-6">Stape</h3>
-            <ul className="space-y-4 text-sm">
+          <div className="bg-accent rounded-2xl p-8 text-primary">
+            <h3 className="text-3xl md:text-4xl font-display font-extrabold mb-1">€50</h3>
+            <p className="text-sm mb-6">per payout</p>
+            <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <span className="text-primary-foreground/60">•</span>
-                <span>€50 per payout</span>
+                <span className="opacity-60">•</span>
+                <span>Transparent forex (mid-market rate + 0.5%)</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary-foreground/60">•</span>
-                <span>Transparent forex (no hidden spreads)</span>
+                <span className="opacity-60">•</span>
+                <span>All compliance included</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary-foreground/60">•</span>
-                <span>Compliance included</span>
+                <span className="opacity-60">•</span>
+                <span>242 countries supported</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary-foreground/60">•</span>
-                <span>Audit trails included</span>
+                <span className="opacity-60">•</span>
+                <span>Same-day or next-day delivery</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary-foreground/60">•</span>
-                <span>Support included</span>
+                <span className="opacity-60">•</span>
+                <span>Full audit trail</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-60">•</span>
+                <span>No hidden fees. Ever.</span>
               </li>
             </ul>
-            <div className="mt-6 pt-6 border-t border-primary-foreground/20">
-              <p className="text-sm">
-                <span className="font-semibold">Total:</span> €50 × number of payouts
-              </p>
-            </div>
           </div>
         </motion.div>
 
@@ -95,7 +103,7 @@ export default function PricingComparison() {
         >
           <a
             href="#"
-            className="inline-flex items-center gap-1.5 px-6 py-3 bg-primary text-primary-foreground font-semibold text-sm rounded-md hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-1.5 px-8 py-3.5 bg-accent text-primary font-bold text-sm rounded-md hover:bg-accent/90 transition-colors uppercase tracking-wide"
           >
             Calculate Your Real Cost
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
