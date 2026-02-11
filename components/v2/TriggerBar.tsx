@@ -8,90 +8,96 @@ import { useRef } from 'react';
 interface Situation {
   id: string;
   text: string;
-  yesCount: number;
-  noCount: number;
+  reactions: {
+    yes: number;
+    no: number;
+    fire: number;
+  };
 }
 
 const initialSituations: Situation[] = [
   {
     id: 'provider-died',
     text: 'Your payment provider just froze payouts — and your contractors are asking where the money is.',
-    yesCount: 304,
-    noCount: 42,
+    reactions: { yes: 304, no: 42, fire: 128 },
   },
   {
     id: 'swift-fails',
-    text: 'You sent a SWIFT transfer last week. It bounced. Now you\'re explaining to your engineer why they\'re paid late. Again.',
-    yesCount: 267,
-    noCount: 58,
+    text: 'You sent a SWIFT transfer last week. It bounced. Now you\u2019re explaining to your engineer why they\u2019re paid late. Again.',
+    reactions: { yes: 267, no: 58, fire: 94 },
   },
   {
     id: 'sanctions-hit',
     text: 'New sanctions just blocked your payment corridor. Your team in that country is suddenly unpayable.',
-    yesCount: 198,
-    noCount: 89,
+    reactions: { yes: 198, no: 89, fire: 67 },
   },
   {
     id: 'spreadsheet-hell',
     text: 'You cross-check three spreadsheets, convert currencies manually, and pray the numbers match. Every. Single. Month.',
-    yesCount: 412,
-    noCount: 31,
+    reactions: { yes: 412, no: 31, fire: 189 },
   },
   {
     id: 'scaling-chaos',
-    text: 'At 15 people it was fine. At 40 you can\'t sleep the night before payday. Someone is always missed.',
-    yesCount: 356,
-    noCount: 47,
+    text: 'At 15 people it was fine. At 40 you can\u2019t sleep the night before payday. Someone is always missed.',
+    reactions: { yes: 356, no: 47, fire: 156 },
   },
   {
     id: 'compliance-gamble',
-    text: 'You\'re paying contractors in 8 countries and honestly have no idea if you\'re compliant in any of them.',
-    yesCount: 289,
-    noCount: 63,
+    text: 'You\u2019re paying contractors in 8 countries and honestly have no idea if you\u2019re compliant in any of them.',
+    reactions: { yes: 289, no: 63, fire: 112 },
   },
   {
     id: 'tool-zoo',
-    text: 'Wise for payments. Deel for contracts. A spreadsheet for tracking. Slack for "where\'s my money?" messages.',
-    yesCount: 378,
-    noCount: 39,
+    text: 'Wise for payments. Deel for contracts. A spreadsheet for tracking. Slack for \u201Cwhere\u2019s my money?\u201D messages.',
+    reactions: { yes: 378, no: 39, fire: 167 },
   },
   {
     id: 'wheres-money',
-    text: 'You spend more time answering "where\'s my payment?" DMs than doing your actual job.',
-    yesCount: 341,
-    noCount: 44,
+    text: 'You spend more time answering \u201Cwhere\u2019s my payment?\u201D DMs than doing your actual job.',
+    reactions: { yes: 341, no: 44, fire: 143 },
   },
 ];
 
+type ReactionType = 'yes' | 'no' | 'fire';
+
 export default function TriggerBar() {
-  const [votes, setVotes] = useState<Record<string, 'yes' | 'no' | null>>({});
+  const [userReactions, setUserReactions] = useState<Record<string, Set<ReactionType>>>({});
   const [situations, setSituations] = useState<Situation[]>(initialSituations);
-  const [totalYes, setTotalYes] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
-  const handleVote = useCallback((id: string, vote: 'yes' | 'no') => {
-    if (votes[id]) return; // Already voted on this card
+  const handleReaction = useCallback((id: string, reaction: ReactionType) => {
+    setUserReactions((prev) => {
+      const current = prev[id] || new Set<ReactionType>();
+      const updated = new Set(current);
 
-    setVotes((prev) => ({ ...prev, [id]: vote }));
-    setSituations((prev) =>
-      prev.map((s) =>
-        s.id === id
-          ? {
-              ...s,
-              yesCount: vote === 'yes' ? s.yesCount + 1 : s.yesCount,
-              noCount: vote === 'no' ? s.noCount + 1 : s.noCount,
-            }
-          : s
-      )
-    );
-    if (vote === 'yes') {
-      setTotalYes((prev) => prev + 1);
-    }
-  }, [votes]);
+      if (updated.has(reaction)) {
+        // Toggle off
+        updated.delete(reaction);
+        setSituations((prevSituations) =>
+          prevSituations.map((s) =>
+            s.id === id
+              ? { ...s, reactions: { ...s.reactions, [reaction]: s.reactions[reaction] - 1 } }
+              : s
+          )
+        );
+      } else {
+        // Toggle on
+        updated.add(reaction);
+        setSituations((prevSituations) =>
+          prevSituations.map((s) =>
+            s.id === id
+              ? { ...s, reactions: { ...s.reactions, [reaction]: s.reactions[reaction] + 1 } }
+              : s
+          )
+        );
+      }
 
-  const hasVoted = Object.keys(votes).length > 0;
-  const yesVotes = Object.values(votes).filter((v) => v === 'yes').length;
+      return { ...prev, [id]: updated };
+    });
+  }, []);
+
+  const totalUserYes = Object.values(userReactions).filter((set) => set.has('yes')).length;
 
   return (
     <section ref={ref} className="py-16 md:py-20 bg-background-secondary">
@@ -107,11 +113,11 @@ export default function TriggerBar() {
             Recognize <span className="italic">your</span> situation?
           </h2>
           <p className="text-foreground-muted text-sm max-w-xl">
-            These are the moments that bring teams to us. If even one sounds familiar — you already know you need a different approach.
+            These are the moments that bring teams to us. Vote on the ones that hit home.
           </p>
         </motion.div>
 
-        {/* Situation cards grid */}
+        {/* Sticky note grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           initial={{ opacity: 0, y: 20 }}
@@ -119,9 +125,8 @@ export default function TriggerBar() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           {situations.map((situation, i) => {
-            const userVote = votes[situation.id];
-            const totalVotes = situation.yesCount + situation.noCount;
-            const yesPercent = Math.round((situation.yesCount / totalVotes) * 100);
+            const userSet = userReactions[situation.id] || new Set<ReactionType>();
+            const hasAnyReaction = userSet.size > 0;
 
             return (
               <motion.div
@@ -129,111 +134,78 @@ export default function TriggerBar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
-                className={`relative flex flex-col justify-between rounded-xl p-5 min-h-[180px] transition-all duration-300 ${
-                  userVote === 'yes'
-                    ? 'bg-accent/20 border-2 border-accent/40'
-                    : userVote === 'no'
-                    ? 'bg-white border-2 border-border/50 opacity-60'
-                    : 'bg-[#FFF9DB] border-2 border-[#F5E6A3]'
+                className={`relative flex flex-col justify-between rounded-lg p-5 min-h-[200px] transition-all duration-300 shadow-sm ${
+                  hasAnyReaction
+                    ? 'bg-[#FFF3A0] border border-[#E8D56C] shadow-md -translate-y-0.5'
+                    : 'bg-[#FFF9DB] border border-[#F0E3A0] hover:shadow-md hover:-translate-y-0.5'
                 }`}
               >
                 {/* Situation text */}
-                <p className="text-[13px] text-primary leading-relaxed mb-4 font-medium">
+                <p className="text-[13px] text-primary leading-relaxed mb-5 font-medium">
                   {situation.text}
                 </p>
 
-                {/* Vote area */}
-                <div className="mt-auto">
-                  {/* Vote bar (always visible, fills when voted) */}
-                  <div className="h-1 bg-primary/5 rounded-full mb-3 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-accent rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: userVote ? `${yesPercent}%` : '0%' }}
-                      transition={{ duration: 0.5, ease: 'easeOut' }}
-                    />
-                  </div>
+                {/* Emoji reactions row — Miro style */}
+                <div className="mt-auto flex items-center gap-2 flex-wrap">
+                  {/* 👋 YES — "That's me" */}
+                  <button
+                    onClick={() => handleReaction(situation.id, 'yes')}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                      userSet.has('yes')
+                        ? 'bg-primary text-white shadow-sm scale-105'
+                        : 'bg-white/80 text-primary/70 hover:bg-white hover:text-primary hover:shadow-sm'
+                    }`}
+                  >
+                    <span className="text-sm">👋</span>
+                    <span>{situation.reactions.yes}</span>
+                  </button>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => handleVote(situation.id, 'yes')}
-                        disabled={!!userVote}
-                        className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200 ${
-                          userVote === 'yes'
-                            ? 'bg-accent text-primary'
-                            : userVote
-                            ? 'bg-primary/5 text-primary/30 cursor-default'
-                            : 'bg-primary/5 text-primary hover:bg-accent hover:text-primary cursor-pointer'
-                        }`}
-                      >
-                        {userVote === 'yes' ? '✓' : '👋'} YES
-                      </button>
-                      <button
-                        onClick={() => handleVote(situation.id, 'no')}
-                        disabled={!!userVote}
-                        className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200 ${
-                          userVote === 'no'
-                            ? 'bg-primary/10 text-primary'
-                            : userVote
-                            ? 'bg-primary/5 text-primary/30 cursor-default'
-                            : 'bg-primary/5 text-primary/60 hover:bg-primary/10 cursor-pointer'
-                        }`}
-                      >
-                        NO
-                      </button>
-                    </div>
-                    {/* Vote count */}
-                    <AnimatePresence>
-                      {userVote && (
-                        <motion.span
-                          initial={{ opacity: 0, x: 5 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="text-[11px] text-primary/40"
-                        >
-                          {yesPercent}% yes · {totalVotes} votes
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                  {/* 🔥 — "This is painful" */}
+                  <button
+                    onClick={() => handleReaction(situation.id, 'fire')}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                      userSet.has('fire')
+                        ? 'bg-primary text-white shadow-sm scale-105'
+                        : 'bg-white/80 text-primary/70 hover:bg-white hover:text-primary hover:shadow-sm'
+                    }`}
+                  >
+                    <span className="text-sm">🔥</span>
+                    <span>{situation.reactions.fire}</span>
+                  </button>
+
+                  {/* 🤷 NO — "Not me" */}
+                  <button
+                    onClick={() => handleReaction(situation.id, 'no')}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                      userSet.has('no')
+                        ? 'bg-primary/20 text-primary shadow-sm scale-105'
+                        : 'bg-white/80 text-primary/40 hover:bg-white hover:text-primary/60 hover:shadow-sm'
+                    }`}
+                  >
+                    <span className="text-sm">🤷</span>
+                    <span>{situation.reactions.no}</span>
+                  </button>
                 </div>
               </motion.div>
             );
           })}
         </motion.div>
 
-        {/* Result / CTA bar */}
+        {/* Soft CTA — appears after engagement */}
         <AnimatePresence>
-          {yesVotes >= 2 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+          {totalUserYes >= 2 && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="mt-8 bg-primary rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              className="text-sm text-primary font-medium text-center mt-8"
             >
-              <div>
-                <p className="text-white font-display font-bold text-base mb-1">
-                  {yesVotes >= 4
-                    ? 'Yeah — you need this.'
-                    : yesVotes >= 3
-                    ? 'Three out of three? We should talk.'
-                    : 'More than one? That\'s a pattern.'}
-                </p>
-                <p className="text-white/60 text-sm">
-                  Every team that switches wished they&apos;d done it one payroll cycle earlier.
-                </p>
-              </div>
-              <a
-                href="#"
-                className="inline-flex items-center gap-1.5 px-6 py-3 bg-accent text-primary font-semibold text-sm rounded-md hover:bg-accent/90 transition-colors whitespace-nowrap flex-shrink-0"
-              >
-                Talk to us now
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+              More than one? That&apos;s a pattern.{' '}
+              <a href="#" className="text-accent font-semibold hover:underline">
+                We built Stape for exactly this &rarr;
               </a>
-            </motion.div>
+            </motion.p>
           )}
         </AnimatePresence>
       </div>
