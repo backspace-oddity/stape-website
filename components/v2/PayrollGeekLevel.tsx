@@ -105,19 +105,23 @@ export default function PayrollGeekLevel() {
             <button
               key={char.id}
               onClick={() => setSelected(selected === char.id ? null : char.id)}
-              className={`relative text-left rounded-2xl p-5 md:p-6 transition-all duration-300 border-2 ${
+              className={`relative text-left rounded-2xl p-5 md:p-6 transition-all duration-300 border-2 flex flex-col ${
                 selected === char.id
                   ? 'border-primary bg-white shadow-lg scale-[1.02]'
                   : 'border-transparent bg-white hover:border-primary/20 hover:shadow-md'
               }`}
             >
-              {/* Icon avatar */}
-              <div className={`w-11 h-11 rounded-xl ${char.accent} flex items-center justify-center text-primary mb-4`}>
-                {char.icon}
+              {/* Icon avatar — fixed height row */}
+              <div className="h-14 flex items-start">
+                <div className={`w-11 h-11 rounded-xl ${char.accent} flex items-center justify-center text-primary`}>
+                  {char.icon}
+                </div>
               </div>
 
-              {/* Role */}
-              <p className="text-sm font-display font-bold text-primary mb-1 min-h-[40px] flex items-start">{char.role}</p>
+              {/* Role — fixed height row to keep alignment across cards */}
+              <div className="h-10 flex items-start">
+                <p className="text-sm font-display font-bold text-primary leading-tight">{char.role}</p>
+              </div>
 
               {/* Level label */}
               <p className="text-xs font-mono text-foreground-muted leading-snug mb-2">

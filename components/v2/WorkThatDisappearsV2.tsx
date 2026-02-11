@@ -5,15 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
+// Long exhausting list — credits-style, feels never-ending
 const todayBullets = [
   'Cross-check three spreadsheets for contractor rates',
+  'Google "how to pay someone in Colombia legally"',
   'Convert currencies manually and hope you got the rate right',
   'Send 47 individual payment instructions',
+  'Realize you sent USD instead of EUR to two people',
   'Chase 12 people for missing tax documents',
   'Explain to your team why payments are late again',
+  'Get a Slack DM: "hey, my payment didn\u2019t arrive?"',
   'Reconcile failed transactions across 3 tools',
+  'Fill out a wire transfer form for the 9th time today',
   'Generate compliance reports for multiple jurisdictions',
-  'Answer "where\'s my money?" messages until 9pm',
+  'Wonder if you\u2019re even withholding the right tax',
+  'Answer "where\u2019s my money?" messages until 9pm',
+  'Manually update your contractor tracking spreadsheet',
+  'Discover Wise flagged a payment for review. Again.',
+  'Email your accountant asking about Brazilian tax codes',
+  'Apologize to your best developer for the late payment',
+  'Open yet another tab to check FX rates',
+  'Realize it\u2019s 7pm and you haven\u2019t done actual work',
+  'Set a reminder to do all of this again next month',
 ];
 
 const stapePhrases = [
@@ -51,22 +64,35 @@ export default function WorkThatDisappearsV2() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 items-stretch">
-          {/* Left: What You Do Today — dense, miserable list */}
+          {/* Left: Endless credits-style scrolling list */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white/5 rounded-2xl p-8 md:p-10 border border-white/10"
+            className="bg-white/5 rounded-2xl p-8 md:p-10 border border-white/10 overflow-hidden"
           >
             <h3 className="text-lg font-display font-bold text-white mb-6">Your Tuesday Without Stape</h3>
-            <ul className="space-y-4">
-              {todayBullets.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-white/70 text-sm leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/30 mt-2 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+
+            {/* Scrolling container with fade masks */}
+            <div className="relative h-[340px]">
+              {/* Top fade — suggests list started way above */}
+              <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#1A2F2B]/95 to-transparent z-10 pointer-events-none" />
+              {/* Bottom fade — suggests list continues below */}
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#1A2F2B]/95 to-transparent z-10 pointer-events-none" />
+
+              {/* CSS-animated scrolling list */}
+              <div className="credits-scroll">
+                <ul className="space-y-3.5">
+                  {/* Duplicate list for seamless loop */}
+                  {[...todayBullets, ...todayBullets].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-white/60 text-sm leading-relaxed">
+                      <span className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </motion.div>
 
           {/* Right: One calm phrase at a time — big, rotating */}
@@ -129,6 +155,24 @@ export default function WorkThatDisappearsV2() {
           </a>
         </motion.div>
       </div>
+
+      {/* Credits scroll animation */}
+      <style jsx>{`
+        .credits-scroll {
+          animation: scrollCredits 40s linear infinite;
+        }
+        .credits-scroll:hover {
+          animation-play-state: paused;
+        }
+        @keyframes scrollCredits {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-50%);
+          }
+        }
+      `}</style>
     </section>
   );
 }
