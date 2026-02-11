@@ -71,27 +71,24 @@ export default function WorkThatDisappearsV2() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="bg-white/5 rounded-2xl p-8 md:p-10 border border-white/10 overflow-hidden"
           >
-            <h3 className="text-lg font-display font-bold text-white mb-6">Your Tuesday Without Stape</h3>
+            <h3 className="text-lg font-display font-bold text-white mb-0">Your Tuesday Without Stape</h3>
 
-            {/* Scrolling container with fade masks */}
-            <div className="relative h-[340px]">
-              {/* Top fade — suggests list started way above */}
-              <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#1A2F2B]/95 to-transparent z-10 pointer-events-none" />
-              {/* Bottom fade — suggests list continues below */}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#1A2F2B]/95 to-transparent z-10 pointer-events-none" />
+            {/* Static overflowing list with fade masks — feels infinite */}
+            <div className="relative overflow-hidden" style={{ height: 380 }}>
+              {/* Top fade — list started way above the visible area */}
+              <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-[rgba(26,47,43,0.97)] to-transparent z-10 pointer-events-none" />
+              {/* Bottom fade — list continues far below */}
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[rgba(26,47,43,0.97)] to-transparent z-10 pointer-events-none" />
 
-              {/* CSS-animated scrolling list */}
-              <div className="credits-scroll">
-                <ul className="space-y-3.5">
-                  {/* Duplicate list for seamless loop */}
-                  {[...todayBullets, ...todayBullets].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-white/60 text-sm leading-relaxed">
-                      <span className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {/* Offset upward so the list looks like it started above the viewport */}
+              <ul className="space-y-3 -mt-4">
+                {todayBullets.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/55 text-[13px] leading-relaxed">
+                    <span className="w-1 h-1 rounded-full bg-white/25 mt-[7px] flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
 
@@ -156,23 +153,6 @@ export default function WorkThatDisappearsV2() {
         </motion.div>
       </div>
 
-      {/* Credits scroll animation */}
-      <style jsx>{`
-        .credits-scroll {
-          animation: scrollCredits 40s linear infinite;
-        }
-        .credits-scroll:hover {
-          animation-play-state: paused;
-        }
-        @keyframes scrollCredits {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
-      `}</style>
     </section>
   );
 }
