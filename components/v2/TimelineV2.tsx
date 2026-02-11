@@ -67,12 +67,17 @@ export default function TimelineV2() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.4, delay: 0.15 + index * 0.1 }}
-                className="bg-accent text-primary rounded-xl p-5"
+                className="bg-white/10 backdrop-blur-sm text-white rounded-xl p-5 border border-white/10"
               >
-                <p className="text-xs font-bold mb-2">{step.time}</p>
-                <h3 className="text-sm font-semibold leading-snug">{step.title}</h3>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-6 h-6 rounded-full bg-accent text-primary text-xs font-bold flex items-center justify-center flex-shrink-0">
+                    {index + 1}
+                  </span>
+                  <p className="text-xs font-semibold text-white/60">{step.time}</p>
+                </div>
+                <h3 className="text-sm font-semibold leading-snug text-white">{step.title}</h3>
                 {step.aside && (
-                  <p className="text-xs mt-2 opacity-70 italic">{step.aside}</p>
+                  <p className="text-xs mt-2 text-white/40 italic">{step.aside}</p>
                 )}
               </motion.div>
             ))}

@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
@@ -15,7 +16,7 @@ const todayBullets = [
   'Answer "where\'s my money?" messages until 9pm',
 ];
 
-const stapeBullets = [
+const stapePhrases = [
   'Close the deal you\u2019ve been chasing for weeks',
   'Interview the senior engineer in S\u00e3o Paulo',
   'Launch the feature your users have been asking for',
@@ -26,6 +27,14 @@ const stapeBullets = [
 export default function WorkThatDisappearsV2() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPhrase((prev) => (prev + 1) % stapePhrases.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section id="work-that-disappears" ref={ref} className="py-20 md:py-28 bg-primary">
@@ -41,8 +50,8 @@ export default function WorkThatDisappearsV2() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Left: What You Do Today */}
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          {/* Left: What You Do Today — dense, miserable list */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -60,29 +69,44 @@ export default function WorkThatDisappearsV2() {
             </ul>
           </motion.div>
 
-          {/* Right: What You Do With Stape */}
+          {/* Right: One calm phrase at a time — big, rotating */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-accent/10 rounded-2xl p-8 md:p-10 border border-accent/20 flex flex-col justify-between"
+            className="bg-accent/10 rounded-2xl p-8 md:p-10 border border-accent/20 flex flex-col justify-between min-h-[400px]"
           >
-            <div>
-              <h3 className="text-lg font-display font-bold text-white mb-6">Your Tuesday With Stape</h3>
-              <ul className="space-y-4">
-                {stapeBullets.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-white/90 text-sm leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/50 mt-2 flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <h3 className="text-lg font-display font-bold text-white mb-8">Your Tuesday With Stape</h3>
+
+            {/* Single rotating phrase — large type */}
+            <div className="flex-1 flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={currentPhrase}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  className="text-[28px] md:text-[36px] font-display font-extrabold text-white leading-[1.15] tracking-[-0.02em]"
+                >
+                  {stapePhrases[currentPhrase]}
+                </motion.p>
+              </AnimatePresence>
             </div>
 
-            <div className="mt-12 pt-6 border-t border-white/10">
-              <p className="text-white/60 text-sm leading-relaxed">
-                We&apos;re excellent at work that shouldn&apos;t exist. It&apos;s the fastest way to make it disappear.
-              </p>
+            {/* Progress dots */}
+            <div className="flex items-center gap-2 mt-8">
+              {stapePhrases.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPhrase(i)}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    i === currentPhrase
+                      ? 'w-6 bg-accent'
+                      : 'w-2 bg-white/20 hover:bg-white/30'
+                  }`}
+                />
+              ))}
             </div>
           </motion.div>
         </div>

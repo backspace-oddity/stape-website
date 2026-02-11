@@ -10,14 +10,14 @@ export default function ProductShowcaseV2() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="py-8 md:py-12 bg-white">
+    <section ref={ref} className="py-16 md:py-24 bg-white">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-[28px] md:text-[36px] font-display font-extrabold text-primary text-center mb-8 tracking-[-0.02em] leading-[1.1]">
+          <h2 className="text-[28px] md:text-[36px] font-display font-extrabold text-primary text-center mb-12 tracking-[-0.02em] leading-[1.1]">
             See how your team gets paid — while you do nothing
           </h2>
           <div className="relative w-full rounded-2xl overflow-hidden shadow-lg bg-background-secondary p-3 md:p-4">

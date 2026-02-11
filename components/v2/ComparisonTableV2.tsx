@@ -94,14 +94,25 @@ export default function ComparisonTableV2() {
           </div>
         </motion.div>
 
-        <motion.p
-          className="text-sm text-foreground-muted text-center mt-8 italic"
+        <motion.div
+          className="mt-10 text-center"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          We&apos;re not a better mousetrap. We&apos;re making mice irrelevant.
-        </motion.p>
+          <p className="text-sm text-foreground-muted italic mb-6">
+            We&apos;re not a better mousetrap. We&apos;re making mice irrelevant.
+          </p>
+          <a
+            href="#"
+            className="inline-flex items-center gap-1.5 px-6 py-3 bg-primary text-primary-foreground font-semibold text-sm rounded-md hover:bg-primary/90 transition-colors"
+          >
+            See what Option C looks like
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
