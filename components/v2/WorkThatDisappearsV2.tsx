@@ -63,25 +63,22 @@ export default function WorkThatDisappearsV2() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-stretch">
-          {/* Left: Endless credits-style scrolling list */}
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          {/* Left: Overwhelming static list — overflows the card naturally */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white/5 rounded-2xl p-8 md:p-10 border border-white/10 overflow-hidden"
+            className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden max-h-[480px]"
           >
-            <h3 className="text-lg font-display font-bold text-white mb-0">Your Tuesday Without Stape</h3>
+            {/* Header inside card padding */}
+            <div className="px-8 md:px-10 pt-8 md:pt-10">
+              <h3 className="text-lg font-display font-bold text-white mb-6">Your Tuesday Without Stape</h3>
+            </div>
 
-            {/* Static overflowing list with fade masks — feels infinite */}
-            <div className="relative overflow-hidden" style={{ height: 380 }}>
-              {/* Top fade — list started way above the visible area */}
-              <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-[rgba(26,47,43,0.97)] to-transparent z-10 pointer-events-none" />
-              {/* Bottom fade — list continues far below */}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[rgba(26,47,43,0.97)] to-transparent z-10 pointer-events-none" />
-
-              {/* Offset upward so the list looks like it started above the viewport */}
-              <ul className="space-y-3 -mt-4">
+            {/* List overflows bottom of the card — no bottom padding, card clips it */}
+            <div className="px-8 md:px-10 pb-0">
+              <ul className="space-y-3">
                 {todayBullets.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-white/55 text-[13px] leading-relaxed">
                     <span className="w-1 h-1 rounded-full bg-white/25 mt-[7px] flex-shrink-0" />
@@ -89,6 +86,8 @@ export default function WorkThatDisappearsV2() {
                   </li>
                 ))}
               </ul>
+              {/* Spacer so the last visible item is mid-line, suggesting more below */}
+              <div className="h-4" />
             </div>
           </motion.div>
 
@@ -97,7 +96,7 @@ export default function WorkThatDisappearsV2() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-accent/10 rounded-2xl p-8 md:p-10 border border-accent/20 flex flex-col justify-between min-h-[400px]"
+            className="bg-accent/10 rounded-2xl p-8 md:p-10 border border-accent/20 flex flex-col justify-between h-[480px]"
           >
             <h3 className="text-lg font-display font-bold text-white mb-8">Your Tuesday With Stape</h3>
 
