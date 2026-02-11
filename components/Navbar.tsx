@@ -36,9 +36,9 @@ export default function Navbar() {
             <a href="#work-that-disappears" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
               Solutions
             </a>
-            <a href="#proof" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
+            <Link href="/product" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
               Product
-            </a>
+            </Link>
             <a href="#pricing" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
               Pricing
             </a>
@@ -87,7 +87,7 @@ export default function Navbar() {
         <div className="bg-white border-t border-border">
           <div className="px-6 py-4 space-y-3">
             <a href="#work-that-disappears" className="block text-sm text-foreground-secondary py-1">Solutions</a>
-            <a href="#proof" className="block text-sm text-foreground-secondary py-1">Product</a>
+            <Link href="/product" className="block text-sm text-foreground-secondary py-1">Product</Link>
             <a href="#pricing" className="block text-sm text-foreground-secondary py-1">Pricing</a>
             <a href="#how-it-works" className="block text-sm text-foreground-secondary py-1">Resources</a>
             <a href="#" className="block text-sm text-foreground-secondary py-1">Partner Program</a>
