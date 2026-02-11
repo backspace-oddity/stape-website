@@ -10,7 +10,7 @@ const metrics = [
     value: '100+',
   },
   {
-    label: 'Paid across sanctioned & complex corridors',
+    label: 'Paid across complex corridors worldwide',
     value: '$40M+',
   },
   {

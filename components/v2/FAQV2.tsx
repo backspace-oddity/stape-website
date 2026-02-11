@@ -12,7 +12,7 @@ const faqs = [
       "Deel and Remote are Employers of Record \u2014 they become the legal employer. We\u2019re contractor payroll only. Your contractors stay as contractors. No entity setup. No waiting for EOR approval. You keep the relationship, we handle the money, compliance, and documents. If Deel stopped servicing your corridor \u2014 that\u2019s exactly why teams come to us.",
   },
   {
-    question: 'What if Stape gets sanctioned or shut down?',
+    question: 'What if our payment corridor gets disrupted?',
     answer:
       "We operate through multiple payment rails across multiple jurisdictions. If one corridor closes, others stay open. That\u2019s not a promise \u2014 it\u2019s the architecture. Your contractors get paid. Period.",
   },
