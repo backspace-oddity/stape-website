@@ -52,7 +52,7 @@ export default function HeroV2() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Stape is an AI-powered platform for global contractor payroll: compliance, fixed FX rates, tax handling in 240+ countries — we&apos;ve got it sorted, so you don&apos;t have to.
+          Stape is a Contractor of Record platform for global payroll: contracts, compliance, fixed FX rates, and tax handling in 242 countries — we take it on, so you don&apos;t have to.
         </motion.p>
 
         {/* CTA row: email input + button */}
