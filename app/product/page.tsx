@@ -9,28 +9,6 @@ import Footer from '@/components/Footer';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
-const steps = [
-  {
-    title: 'Drop a doc. Get a company profile.',
-    description: 'Upload anything — a registration certificate, an invoice, a screenshot. The AI extracts every field and builds your profile in seconds.',
-    video: '/product-onboarding.mp4',
-    image: '/product-onboarding.png',
-    imageAlt: 'Company onboarding — AI-parsed profile card with all fields complete',
-  },
-  {
-    title: 'Review. Sign. Done.',
-    description: 'Your contract is generated and ready right in the chat. Read through it, hit sign — no redirects, no PDFs, no separate tools.',
-    image: '/product-contract.png',
-    imageAlt: 'Service agreement card with digital signature — signed inline',
-  },
-  {
-    title: 'Paste your contractor list. We\'ll structure and run it.',
-    description: 'Upload it in any format. We map the data, create clean contractor profiles, and handle contracts and payouts — with zero manual setup.',
-    image: '/product-contractors.png',
-    imageAlt: 'Contractor review cards — 5 contractors parsed with missing field indicators',
-  },
-];
-
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
@@ -65,9 +43,9 @@ export default function ProductPage() {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            Set up payroll like
+            One platform for contracts,
             <br />
-            <span className="text-foreground-muted">texting a friend</span>
+            <span className="text-foreground-muted">compliance, and payouts.</span>
           </motion.h1>
 
           <motion.p
@@ -76,7 +54,7 @@ export default function ProductPage() {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            No forms. No onboarding calls. Drop your docs and start paying contractors worldwide.
+            Stape is your Contractor of Record. We sign the contracts, handle KYC, manage compliance, and pay your team in 242 countries. You get one invoice.
           </motion.p>
 
           <motion.div
@@ -86,16 +64,16 @@ export default function ProductPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <a
-              href="/"
+              href="#"
               className="inline-flex items-center gap-1.5 px-6 py-3 bg-primary text-primary-foreground font-semibold text-sm rounded-md hover:bg-primary/90 transition-colors"
             >
-              Try the demo
+              Book a Demo
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
             <a
-              href="#walkthrough"
+              href="#features"
               className="text-sm font-medium text-foreground-secondary hover:text-primary transition-colors"
             >
               See how it works
@@ -104,96 +82,112 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* ── Walkthrough — image-first showcase ── */}
-      <section id="walkthrough" className="scroll-mt-16">
-        {steps.map((step, idx) => (
-          <div key={step.title} className={idx % 2 === 0 ? 'bg-background-secondary' : 'bg-white'}>
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
-              <AnimatedSection>
+      {/* ── Feature sections ── */}
+      <section id="features" className="scroll-mt-16">
+
+        {/* Section 1 — Company Onboarding */}
+        <div className="bg-background-secondary">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
+            <AnimatedSection>
+              <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
+                Get your company set up in under 5 minutes.
+              </h2>
+              <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
+                Create your company profile, sign a single service agreement with Stape, and you&apos;re ready to pay contractors worldwide. No legal legwork on your end.
+              </p>
+
+              <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
+                <Image
+                  src={`${basePath}/product-onboarding2.png`}
+                  alt="Stape dashboard — Company Profile setup"
+                  width={2400}
+                  height={1400}
+                  className="w-full h-auto block"
+                  priority
+                />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+
+        {/* Section 2 — Contractor Management */}
+        <div className="bg-white">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
+            <AnimatedSection>
+              <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
+                Add your contractors. We handle the rest.
+              </h2>
+              <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
+                Add contractors in bulk or one by one. Stape handles contract signing, KYC verification, and onboarding — so you&apos;re never chasing paperwork across time zones.
+              </p>
+
+              <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
+                <Image
+                  src={`${basePath}/product-contractors2.png`}
+                  alt="Stape dashboard — Contractor import with validation"
+                  width={2400}
+                  height={1400}
+                  className="w-full h-auto block"
+                />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+
+        {/* Section 3 — Payouts */}
+        <div className="bg-background-secondary">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
+            <AnimatedSection>
+              <div className="max-w-3xl">
                 <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
-                  {step.title}
+                  Pay your entire team from a single balance.
                 </h2>
                 <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
-                  {step.description}
+                  Create payouts in a few clicks or schedule them to run automatically. Hold and exchange multiple currencies with fixed FX rates — so your payments are predictable, every cycle. Full transaction history and reports for your finance team.
                 </p>
-
-                {/* Full-width media */}
-                <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
-                  {step.video ? (
-                    <video
-                      src={`${basePath}${step.video}`}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-auto block"
-                    />
-                  ) : (
-                    <Image
-                      src={`${basePath}${step.image}`}
-                      alt={step.imageAlt}
-                      width={2400}
-                      height={1400}
-                      className="w-full h-auto block"
-                      priority={idx === 0}
-                    />
-                  )}
-                </div>
-              </AnimatedSection>
-            </div>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
+                <Image
+                  src={`${basePath}/product-payout.png`}
+                  alt="Stape dashboard — Payouts with multi-currency balance"
+                  width={2400}
+                  height={1400}
+                  className="w-full h-auto block"
+                />
+              </div>
+            </AnimatedSection>
           </div>
-        ))}
-      </section>
-
-      {/* ── Autopilot payroll ── */}
-      <section className="bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
-          <AnimatedSection>
-            <div className="max-w-3xl">
-              <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
-                Pay contractors on autopilot.
-              </h2>
-              <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
-                No admin work. No chasing invoices. Payouts happen automatically — like you hired a full-time payroll manager, except it never takes a day off.
-              </p>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
-              <video
-                src={`${basePath}/product-autopilot.mp4`}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-auto block"
-              />
-            </div>
-          </AnimatedSection>
         </div>
-      </section>
 
-      {/* ── Compliance ── */}
-      <section className="bg-background-secondary">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
-          <AnimatedSection>
-            <div className="max-w-3xl">
-              <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
-                Stay compliant without thinking about it.
-              </h2>
-              <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
-                Need an invoice, a tax form, or a local agreement? Ask the AI agent in chat — it generates jurisdiction-perfect documents for any country and any case.
+        {/* Section 4 — Compliance (Beta) */}
+        <div className="bg-white">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
+            <AnimatedSection>
+              <div className="max-w-3xl">
+                <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-accent/20 text-primary rounded-full mb-4">
+                  Beta
+                </span>
+                <h2 className="text-[24px] md:text-[36px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1] mb-3">
+                  Compliance that handles itself.
+                </h2>
+                <p className="text-base md:text-lg text-foreground-secondary leading-relaxed max-w-2xl mb-8 md:mb-12">
+                  Upload a payroll file or salary sheet — Stape cross-checks amounts, flags discrepancies, and generates the compliance documents you need. Contracts, invoices, tax forms, and work completion reports — verified and ready for your auditor. Skip the manual cross-checking. Close every payroll cycle with confidence.
+                </p>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
+                <Image
+                  src={`${basePath}/compl.png`}
+                  alt="Stape — Payroll verification and compliance document generation (Beta)"
+                  width={2400}
+                  height={1400}
+                  className="w-full h-auto block"
+                />
+              </div>
+              <p className="mt-6 text-sm text-foreground-muted">
+                Currently in limited beta. <a href="#" className="underline hover:text-primary transition-colors">Book a demo</a> to get early access.
               </p>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden shadow-lg ring-1 ring-border/50">
-              <video
-                src={`${basePath}/product-compliance.mp4`}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-auto block"
-              />
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
 
@@ -204,9 +198,9 @@ export default function ProductPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { value: '< 5 min', label: 'Company setup' },
-                { value: '1 click', label: 'Contract signing' },
-                { value: 'Any format', label: 'Contractor import' },
-                { value: '240+', label: 'Countries' },
+                { value: '1 invoice', label: 'For your books' },
+                { value: '242', label: 'Countries covered' },
+                { value: '€50', label: 'Flat fee per payout' },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -230,26 +224,20 @@ export default function ProductPage() {
         <div className="max-w-[700px] mx-auto px-6 md:px-12">
           <AnimatedSection className="flex flex-col items-center text-center">
             <h2 className="text-[28px] md:text-[40px] font-display font-extrabold text-primary tracking-[-0.02em] leading-[1.1]">
-              Ready to stop filling out forms?
+              See how Stape works for your team.
             </h2>
             <p className="mt-4 text-base text-foreground-secondary leading-relaxed max-w-md">
-              Try the interactive demo — 2 minutes, no signup.
+              Book a 15-minute walkthrough. We&apos;ll show you the platform with your specific setup — countries, currencies, team size.
             </p>
             <div className="flex items-center gap-4 mt-8">
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center gap-1.5 px-6 py-3 bg-primary text-primary-foreground font-semibold text-sm rounded-md hover:bg-primary/90 transition-colors"
               >
-                Launch demo
+                Book a Demo
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-1.5 px-6 py-3 border border-border text-primary font-semibold text-sm rounded-md hover:bg-background-secondary transition-colors"
-              >
-                Book a demo
               </a>
             </div>
           </AnimatedSection>
