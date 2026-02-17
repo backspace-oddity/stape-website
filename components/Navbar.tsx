@@ -1,10 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const solutionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
+        setSolutionsOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-border/50">
@@ -33,9 +45,28 @@ export default function Navbar() {
 
           {/* Center: nav links */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#work-that-disappears" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
-              Solutions
-            </a>
+            <div ref={solutionsRef} className="relative">
+              <button
+                onClick={() => setSolutionsOpen(!solutionsOpen)}
+                className="flex items-center gap-1 text-sm text-foreground-secondary hover:text-primary transition-colors"
+              >
+                Solutions
+                <svg className={`w-3 h-3 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {solutionsOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg border border-border shadow-lg py-2">
+                  <Link
+                    href="/solutions/founders"
+                    onClick={() => setSolutionsOpen(false)}
+                    className="block px-4 py-2 text-sm text-foreground-secondary hover:text-primary hover:bg-background-secondary transition-colors"
+                  >
+                    For Founders
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link href="/product" className="text-sm text-foreground-secondary hover:text-primary transition-colors">
               Product
             </Link>
@@ -86,7 +117,10 @@ export default function Navbar() {
       {isOpen && (
         <div className="bg-white border-t border-border">
           <div className="px-6 py-4 space-y-3">
-            <a href="#work-that-disappears" className="block text-sm text-foreground-secondary py-1">Solutions</a>
+            <div className="py-1">
+              <span className="block text-sm text-foreground-secondary">Solutions</span>
+              <Link href="/solutions/founders" onClick={() => setIsOpen(false)} className="block text-sm text-foreground-muted pl-4 py-1 hover:text-primary transition-colors">For Founders</Link>
+            </div>
             <Link href="/product" className="block text-sm text-foreground-secondary py-1">Product</Link>
             <a href="#pricing" className="block text-sm text-foreground-secondary py-1">Pricing</a>
             <a href="#how-it-works" className="block text-sm text-foreground-secondary py-1">Resources</a>
