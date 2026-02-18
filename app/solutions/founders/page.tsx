@@ -22,8 +22,8 @@ interface Situation {
 
 const initialSituations: Situation[] = [
   {
-    id: 'deel-cutoff',
-    text: 'Deel just cut off your entire region. Your devs haven\u2019t been paid in 3 weeks. You\u2019re Googling \u201Chow to send money to Serbia\u201D at midnight.',
+    id: 'provider-cutoff',
+    text: 'Your payment provider just cut off your entire region. Your devs haven\u2019t been paid in 3 weeks. You\u2019re Googling \u201Chow to send money to Serbia\u201D at midnight.',
     reactions: { fire: 412, bang: 189, skull: 31 },
   },
   {
@@ -52,7 +52,7 @@ const beforeAfterData = [
     after: 'One click. Upload a registry, everyone gets paid in the right currency.',
   },
   {
-    before: 'Deel/Remote stopped supporting your team\u2019s passports \u2014 scrambling for Plan B',
+    before: 'Your provider stopped supporting your team\u2019s passports \u2014 scrambling for Plan B',
     after: 'We pay in 242 countries. Sanctions, corridor changes \u2014 that\u2019s our problem, not yours.',
   },
   {
@@ -95,43 +95,43 @@ const timelineSteps = [
 const comparisonData = [
   {
     feature: 'RU/BY corridors',
-    deel: 'Stopped supporting',
-    solar: 'Limited, unreliable',
+    eor: 'Stopped supporting',
+    freelance: 'Limited, unreliable',
     crypto: 'Works until bank blocks you',
     stape: 'Active, with fallback routes',
   },
   {
     feature: 'Visa & income docs',
-    deel: 'Only for supported countries',
-    solar: 'Basic',
+    eor: 'Only for supported countries',
+    freelance: 'Basic',
     crypto: 'None',
     stape: 'Named contracts, invoices, certificates',
   },
   {
     feature: 'Compliance isolation',
-    deel: 'Your entity is on record',
-    solar: 'Your entity is on record',
+    eor: 'Your entity is on record',
+    freelance: 'Your entity is on record',
     crypto: 'Fully exposed',
     stape: 'Two-contract scheme, no direct link',
   },
   {
     feature: 'Pricing model',
-    deel: '% of salary + hidden FX',
-    solar: '% of salary + \u201Ctasks\u201D overhead',
+    eor: '% of salary + hidden FX',
+    freelance: '% of salary + \u201Ctasks\u201D overhead',
     crypto: '1\u20132% + your time',
     stape: '\u20AC50 flat + transparent FX',
   },
   {
     feature: 'Admin time per payout',
-    deel: '2+ hours',
-    solar: 'Hours of manual work',
+    eor: '2+ hours',
+    freelance: 'Hours of manual work',
     crypto: '6+ hours at 30+ people',
     stape: 'Minutes. One upload.',
   },
   {
     feature: 'Scales past 30 people',
-    deel: 'If you\u2019re in a supported country',
-    solar: 'Painful UX',
+    eor: 'If you\u2019re in a supported country',
+    freelance: 'Painful UX',
     crypto: 'Breaks down',
     stape: 'Built for 10\u2013200+ contractors',
   },
@@ -173,8 +173,8 @@ const faqs = [
     answer: 'Yes. Each contractor gets a named contract and monthly invoices from a foreign legal entity. These are accepted by banks and immigration authorities in Spain, Portugal, Serbia, and other popular relocation destinations.',
   },
   {
-    question: 'How is this different from Deel or Remote?',
-    answer: 'Deel and Remote don\u2019t serve contractors with RU/BY passports and increasingly require excessive KYC. We specialize in complex corridors they won\u2019t touch. Our flat fee structure also means you don\u2019t get punished as salaries grow.',
+    question: 'How is this different from global EOR platforms?',
+    answer: 'Most global payroll platforms don\u2019t serve contractors with RU/BY passports and increasingly require excessive KYC. We specialize in complex corridors they won\u2019t touch. Our flat fee structure also means you don\u2019t get punished as salaries grow.',
   },
   {
     question: 'What about Russian tax implications (115-FZ, employment misclassification)?',
@@ -529,8 +529,8 @@ function AlternativesComparison() {
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-left py-4 px-3 text-sm font-semibold text-primary w-[18%]"></th>
-                  <th className="text-center py-4 px-3 text-sm font-semibold text-foreground-muted">Deel / Remote</th>
-                  <th className="text-center py-4 px-3 text-sm font-semibold text-foreground-muted">Solar Staff / Mellow</th>
+                  <th className="text-center py-4 px-3 text-sm font-semibold text-foreground-muted">Global EOR</th>
+                  <th className="text-center py-4 px-3 text-sm font-semibold text-foreground-muted">Freelance Platforms</th>
                   <th className="text-center py-4 px-3 text-sm font-semibold text-foreground-muted">Crypto / DIY</th>
                   <th className="text-center py-4 px-4 text-sm font-bold text-primary bg-accent/20 rounded-t-xl">Stape</th>
                 </tr>
@@ -539,8 +539,8 @@ function AlternativesComparison() {
                 {comparisonData.map((row, index) => (
                   <tr key={index} className="border-b border-border/50 last:border-0">
                     <td className="py-4 px-3 text-sm font-medium text-primary">{row.feature}</td>
-                    <td className="py-4 px-3 text-sm text-foreground-muted text-center">{row.deel}</td>
-                    <td className="py-4 px-3 text-sm text-foreground-muted text-center">{row.solar}</td>
+                    <td className="py-4 px-3 text-sm text-foreground-muted text-center">{row.eor}</td>
+                    <td className="py-4 px-3 text-sm text-foreground-muted text-center">{row.freelance}</td>
                     <td className="py-4 px-3 text-sm text-foreground-muted text-center">{row.crypto}</td>
                     <td className={`py-4 px-4 text-sm text-primary text-center font-semibold bg-accent/20 ${index === comparisonData.length - 1 ? 'rounded-b-xl' : ''}`}>
                       <span className="inline-flex items-center gap-1">
