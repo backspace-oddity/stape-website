@@ -64,6 +64,13 @@ export default function Navbar() {
                   >
                     For Founders
                   </Link>
+                  <Link
+                    href="/use-cases/global-hiring"
+                    onClick={() => setSolutionsOpen(false)}
+                    className="block px-4 py-2 text-sm text-foreground-secondary hover:text-primary hover:bg-background-secondary transition-colors"
+                  >
+                    Global Hiring
+                  </Link>
                 </div>
               )}
             </div>
@@ -120,6 +127,7 @@ export default function Navbar() {
             <div className="py-1">
               <span className="block text-sm text-foreground-secondary">Solutions</span>
               <Link href="/solutions/founders" onClick={() => setIsOpen(false)} className="block text-sm text-foreground-muted pl-4 py-1 hover:text-primary transition-colors">For Founders</Link>
+              <Link href="/use-cases/global-hiring" onClick={() => setIsOpen(false)} className="block text-sm text-foreground-muted pl-4 py-1 hover:text-primary transition-colors">Global Hiring</Link>
             </div>
             <Link href="/product" className="block text-sm text-foreground-secondary py-1">Product</Link>
             <a href="#pricing" className="block text-sm text-foreground-secondary py-1">Pricing</a>
