@@ -52,7 +52,7 @@ const characters = [
     id: 'hr',
     role: 'HR Manager',
     level: 'Auto-pilot mode',
-    tagline: 'Contracts, docs, compliance \u2014 all handled',
+    tagline: 'Contracts, docs, compliance — all handled',
     description:
       'You stop managing a zoo of 4 providers across 12 countries. Every contractor gets paid on the promised day, in the promised amount. Compliance documents generate automatically. You go from \u2018payroll specialist who also does HR\u2019 back to \u2018HR leader.\u2019',
     icon: (

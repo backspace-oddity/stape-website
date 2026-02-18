@@ -51,7 +51,7 @@ export default function FAQV2() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          The questions keeping you
+          The questions keeping you from clicking that button
         </motion.h2>
         <motion.p
           className="text-foreground-muted text-center mb-12 -mt-8"
@@ -59,7 +59,7 @@ export default function FAQV2() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          from clicking that button
+          fair questions, honest answers
         </motion.p>
 
         <motion.div

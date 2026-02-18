@@ -3,11 +3,11 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import Image from 'next/image';
 
 export default function ProductShowcaseV2() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   return (
     <section ref={ref} className="py-24 md:py-36 bg-white">
@@ -21,13 +21,13 @@ export default function ProductShowcaseV2() {
             See how your team gets paid — while you do nothing
           </h2>
           <div className="relative w-full rounded-2xl overflow-hidden shadow-lg bg-background-secondary p-3 md:p-4">
-            <Image
-              src="/Images/SCR-20260209-bjhb.png"
-              alt="Stape dashboard — contractor payment management"
-              width={1600}
-              height={900}
+            <video
+              src={`${basePath}/video-main.mp4`}
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-auto rounded-xl"
-              priority
             />
           </div>
         </motion.div>

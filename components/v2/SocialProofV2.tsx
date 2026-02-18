@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const testimonials = [
   {
-    quote: "We went from spending 2 days every month on contractor payroll to literally clicking a button. It's absurd how much time we got back.",
+    quote: "We went from spending 2 days every month on contractor payroll to literally clicking a button. It\u2019s absurd how much time we got back.",
     author: "Sarah Chen",
     role: "CFO, Vertex AI",
     metric: "14 hours saved/month",
@@ -50,9 +50,9 @@ export default function SocialProofV2() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="bg-white rounded-2xl p-8 md:p-12 border border-border mb-8"
         >
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid md:grid-cols-[1fr_340px] gap-8 md:gap-10 items-stretch">
             {/* Left: Quote */}
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-center py-2">
               <p className="text-lg md:text-xl text-primary leading-relaxed mb-8">
                 &ldquo;{testimonials[0].quote}&rdquo;
               </p>
@@ -71,14 +71,14 @@ export default function SocialProofV2() {
               </div>
             </div>
 
-            {/* Right: Product image */}
-            <div className="bg-background-secondary rounded-xl overflow-hidden flex items-center justify-center min-h-[240px]">
+            {/* Right: Contractors paid list */}
+            <div className="rounded-xl overflow-hidden max-h-[360px]">
               <Image
-                src="/Images/SCR-20260209-bjhb.png"
-                alt="Stape dashboard — contractor management"
-                width={600}
-                height={400}
-                className="w-full h-full object-cover rounded-xl"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/all-contractors-paid.png`}
+                alt="All contractors paid — Stape payout confirmation"
+                width={340}
+                height={640}
+                className="w-full h-auto object-cover object-top rounded-xl"
               />
             </div>
           </div>

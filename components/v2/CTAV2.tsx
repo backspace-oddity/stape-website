@@ -22,7 +22,7 @@ export default function CTAV2() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Pay one contractor through Stape this week. See how it feels when the money lands in 48 hours and the audit trail generates itself. If it works, pay two next month. We&apos;re not trying to own your soul — we&apos;re trying to save your Saturdays.
+          Pay one contractor through Stape this week. See how it feels when the money lands in 48 hours and the audit trail generates itself. If it works, pay two next month.
         </motion.p>
         <motion.div
           className="flex flex-col sm:flex-row gap-3 justify-center items-center"

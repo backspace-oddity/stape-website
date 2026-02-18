@@ -32,16 +32,16 @@ const todayBullets = [
 const stapePhrases = [
   'Close the deal you\u2019ve been chasing for weeks',
   'Interview the senior engineer in S\u00e3o Paulo',
-  'Launch the feature your users have been asking for',
+  'Close the deal. Ship the feature. Take the call from Tokyo.',
   'Take a proper lunch break',
-  'Leave at 6pm knowing everyone\u2019s paid',
+  'Close the deal you\u2019ve been chasing for weeks',
 ];
 
 export default function WorkThatDisappearsV2() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [thingsCount, setThingsCount] = useState(143);
+  const [thingsCount, setThingsCount] = useState(167);
 
   useEffect(() => {
     const interval = setInterval(() => {

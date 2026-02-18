@@ -1,18 +1,18 @@
 'use client';
 
-import Hero from '@/components/Hero';
-import ProductShowcase from '@/components/ProductShowcase';
-import Metrics from '@/components/Metrics';
-import WorkThatDisappears from '@/components/WorkThatDisappears';
-import SocialProof from '@/components/SocialProof';
-import Timeline from '@/components/Timeline';
-import Stats from '@/components/Stats';
-import Features from '@/components/Features';
-import ComparisonTable from '@/components/ComparisonTable';
-import RoleSpecificOutcomes from '@/components/RoleSpecificOutcomes';
-import FAQ from '@/components/FAQ';
+import HeroV2 from '@/components/v2/HeroV2';
+import TriggerBar from '@/components/v2/TriggerBar';
+import MetricsV2 from '@/components/v2/MetricsV2';
+import ProductShowcaseV2 from '@/components/v2/ProductShowcaseV2';
+import WorkThatDisappearsV2 from '@/components/v2/WorkThatDisappearsV2';
+import TimelineV2 from '@/components/v2/TimelineV2';
+import ComplianceFirewall from '@/components/v2/ComplianceFirewall';
+import SocialProofV2 from '@/components/v2/SocialProofV2';
+import ComparisonTableV2 from '@/components/v2/ComparisonTableV2';
+import PayrollGeekLevel from '@/components/v2/PayrollGeekLevel';
 import PricingComparison from '@/components/PricingComparison';
-import CTA from '@/components/CTA';
+import FAQV2 from '@/components/v2/FAQV2';
+import CTAV2 from '@/components/v2/CTAV2';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -20,19 +20,19 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <Hero />
-      <Metrics />
-      <ProductShowcase />
-      <WorkThatDisappears />
-      <Timeline />
-      <SocialProof />
-      <Stats />
-      <Features />
-      <ComparisonTable />
-      <RoleSpecificOutcomes />
-      <FAQ />
+      <HeroV2 />
+      <MetricsV2 />
+      <TriggerBar />
+      <ProductShowcaseV2 />
+      <WorkThatDisappearsV2 />
+      <TimelineV2 />
+      <ComplianceFirewall />
+      <SocialProofV2 />
+      <ComparisonTableV2 />
+      <PayrollGeekLevel />
       <PricingComparison />
-      <CTA />
+      <FAQV2 />
+      <CTAV2 />
       <Footer />
     </main>
   );
